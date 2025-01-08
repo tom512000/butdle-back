@@ -19,14 +19,7 @@ class PersonController extends AbstractController
     public function __invoke(): JsonResponse
     {
         $repository = $this->entityManager->getRepository(Person::class);
-
-        $persons = $repository->findAll();
-
-        if (empty($persons)) {
-            return new JsonResponse(['message' => 'No person found'], 404);
-        }
-
-        $randomPerson = $persons[array_rand($persons)];
+        $randomPerson = $repository->generateRandomPerson();
 
         return new JsonResponse([
             'firstname' => $randomPerson->getFirstName(),
