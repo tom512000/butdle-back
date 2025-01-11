@@ -45,6 +45,9 @@ class Person
     #[ORM\ManyToMany(targetEntity: Subject::class, inversedBy: 'people')]
     private Collection $subjects;
 
+    #[ORM\ManyToOne(inversedBy: 'person')]
+    private ?DailyPerson $dailyPerson = null;
+
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
@@ -147,6 +150,18 @@ class Person
     public function removeSubject(Subject $subject): static
     {
         $this->subjects->removeElement($subject);
+
+        return $this;
+    }
+
+    public function getDailyPerson(): ?DailyPerson
+    {
+        return $this->dailyPerson;
+    }
+
+    public function setDailyPerson(?DailyPerson $dailyPerson): static
+    {
+        $this->dailyPerson = $dailyPerson;
 
         return $this;
     }
