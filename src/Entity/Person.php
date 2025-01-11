@@ -36,7 +36,7 @@ class Person
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text')]
     private ?string $image = null;
 
     /**

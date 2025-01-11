@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $jsonData = file_get_contents(__DIR__ . '/data/persons.json');
+        $jsonData = file_get_contents(__DIR__.'/data/persons.json');
         $persons = json_decode($jsonData, true);
         $existingSubjects = [];
 
@@ -22,7 +22,13 @@ class AppFixtures extends Fixture
             $person->setGender($personData['genre']);
             $person->setJob($personData['emploi']);
             $person->setStatus($personData['statut']);
-            $person->setImage($personData['image']);
+
+            $imagePath = __DIR__.'/data/images/'.$personData['image'];
+            if (file_exists($imagePath)) {
+                $imageContent = file_get_contents($imagePath);
+                $imageBase64 = base64_encode($imageContent);
+                $person->setImage($imageBase64);
+            }
 
             if (!empty($personData['matieres'])) {
                 foreach ($personData['matieres'] as $subjectName) {
