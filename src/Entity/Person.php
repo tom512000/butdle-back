@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use App\Controller\PeopleController;
 use App\Controller\PersonController;
 use App\Repository\PersonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
 #[ApiResource(operations: [
-    new Get(uriTemplate: '/people/random', controller: PersonController::class, name: 'random_person')
+    new Get(uriTemplate: '/people/random', controller: PersonController::class, name: 'random_person'),
+    new Get(uriTemplate: '/people/all', controller: PeopleController::class, name: 'all_people')
 ])]
 class Person
 {
